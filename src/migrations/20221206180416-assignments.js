@@ -17,8 +17,8 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       description: Sequelize.STRING,
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE
+      created: Sequelize.DATE,
+      updated: Sequelize.DATE
     }, {
       timestamps: false,
       underscored: true,
