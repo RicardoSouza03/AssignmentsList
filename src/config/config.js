@@ -5,11 +5,11 @@ const config = {
   password: process.env.MYSQL_PASSWORD,
   host: process.env.MYSQL_HOST,
   port: process.env.MYSQL_PORT,
-  dialect: 'mysql'
+  dialect: 'mysql',
 }
 
 module.exports = {
-  devlopment: {
+  development: {
     ...config,
     database: 'assignments_list_development'
   },
