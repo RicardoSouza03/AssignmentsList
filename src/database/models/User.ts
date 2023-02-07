@@ -19,9 +19,9 @@ User.init({
   tableName: 'users',
   timestamps: false,
   underscored: true
-})
+});
 
-User.hasMany(Assignment, {
+User.belongsTo(Assignment, {
   foreignKey: 'userId', as: 'assignments'
 });
 
