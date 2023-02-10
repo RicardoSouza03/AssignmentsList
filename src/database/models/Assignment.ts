@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
+import User from './User';
 
 class Assignment extends Model {
   declare id: number;
@@ -20,6 +21,10 @@ Assignment.init({
   tableName: 'assignments',
   timestamps: false,
   underscored: true
+});
+
+Assignment.hasMany(User, {
+  foreignKey: 'userId', as: 'user'
 });
 
 export default Assignment;

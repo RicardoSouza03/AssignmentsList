@@ -21,8 +21,5 @@ User.init({
   underscored: true
 });
 
-User.belongsTo(Assignment, {
-  foreignKey: 'userId', as: 'assignments'
-});
 
 export default User;  
