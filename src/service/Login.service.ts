@@ -11,11 +11,11 @@ export default class LoginService {
     this.loginValidations.checkUserInfo(user);
     
     const hash = encryptPassword(user.password);
-    const createdUser = await User.create({ ...user, password: hash });
+    const { dataValues: createdUser } = await User.create({ ...user, password: hash });
     
     this.loginValidations.checkUserCreation(createdUser);
 
-    const token = generateToken(user);
+    const token = generateToken(createdUser);
     return token;
   }
 
