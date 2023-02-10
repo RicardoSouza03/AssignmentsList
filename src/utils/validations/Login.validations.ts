@@ -1,4 +1,5 @@
 import IUser from '../../interfaces/IUser';
+import ConflictError from '../erros/ConflictError';
 import InternalError from '../erros/InternalError';
 import InvalidParam from '../erros/InvalidParam';
 import MissinParamError from '../erros/MissinParam';
@@ -9,7 +10,7 @@ export interface ILoginValidator {
   checkUserName: ( name: string) => void;
   checkUserPassword: ( password: string) => void;
   checkUserCreation: (user: IUser) => void;
-  checkUserExistence: (userFound: IUser | null) => void;
+  userEmailMatch: (userFound: IUser | null, isLogin: boolean) => void;
   userPasswordMatch: (passwordMatch: boolean) => void;
 }
 
@@ -43,8 +44,10 @@ export default class LoginValidator implements ILoginValidator {
     if (!user) throw new InternalError('Ops, ocorreu um erro, por favor tente mais tarde.');
   }
 
-  checkUserExistence (userFound: IUser | null): void {
-    if (userFound == null) throw new InvalidParam('Email ou senha incorretos.');
+  userEmailMatch (userFound: IUser | null, isLogin: boolean): void {
+    if (isLogin && userFound == null) throw new InvalidParam('Email ou senha incorretos.');
+    
+    if (!isLogin && userFound) throw new ConflictError('Email já cadastrado.')
   };
 
   userPasswordMatch (passwordMatch: boolean): void {
