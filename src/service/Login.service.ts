@@ -3,7 +3,6 @@ import User from '../database/models/User';
 import { checkPassword, encryptPassword } from '../utils/bcrypt';
 import { generateToken } from '../utils/jwtToken';
 import LoginValidator from '../utils/validations/Login.validations';
-import sequelize = require('sequelize');
 
 export default class LoginService {
   private static loginValidations = new LoginValidator();
