@@ -8,8 +8,8 @@ const jwtConfig = {
   algorithm: 'HS256',
 }
 
-export function generateToken({ name, email }: IUser): string {
-  const token = jwt.sign({ data: { email, name } }, secret, jwtConfig as jwt.SignOptions);
+export function generateToken({ name, email, id }: IUser): string {
+  const token = jwt.sign({ data: { email, name, id } }, secret, jwtConfig as jwt.SignOptions);
   return token;
 }
 
