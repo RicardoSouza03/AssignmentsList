@@ -44,17 +44,17 @@ export default class AssignmentsService {
   }
 
   public static async updateAssignment(
-    newAssignment: { description: string, assingmentId: number },
+    newAssignment: { description: any, assignmentId: number },
     token: string | undefined
   ): Promise<IAssignment> {
-    const { description, assingmentId } = newAssignment
+    const { description, assignmentId } = newAssignment
     this.validations.validateDescription(description);
-    this.validations.validateAssingmentId(assingmentId);
+    this.validations.validateAssingmentId(assignmentId);
 
     const id = this.getIdFromToken(token);
 
-    await Assignment.update({ description }, { where: { userId: id, id: assingmentId } });
-    const updatedAssignment = await this.getAssignmentById(assingmentId);
+    await Assignment.update({ description }, { where: { userId: id, id: assignmentId } });
+    const updatedAssignment = await this.getAssignmentById(assignmentId);
     
     return updatedAssignment;
   }
