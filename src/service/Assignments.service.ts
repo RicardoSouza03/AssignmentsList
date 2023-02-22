@@ -53,7 +53,7 @@ export default class AssignmentsService {
 
     const id = this.getIdFromToken(token);
 
-    await Assignment.update({ description }, { where: { userId: id, id: assignmentId } });
+    await Assignment.update({ description, updated: new Date() }, { where: { userId: id, id: assignmentId } });
     const updatedAssignment = await this.getAssignmentById(assignmentId);
     
     return updatedAssignment;
