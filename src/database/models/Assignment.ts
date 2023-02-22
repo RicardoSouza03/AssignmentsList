@@ -12,7 +12,7 @@ class Assignment extends Model {
 
 Assignment.init({
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  userId: DataTypes.INTEGER,
+  userId: { type: DataTypes.INTEGER, field: 'user_id' },
   description: DataTypes.STRING,
   created: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
@@ -23,7 +23,7 @@ Assignment.init({
   underscored: true
 });
 
-Assignment.hasMany(User, {
+Assignment.belongsTo(User, {
   foreignKey: 'userId', as: 'user'
 });
 
