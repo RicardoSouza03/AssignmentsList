@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
 import IUser from '../interfaces/IUser';
+import MissinParamError from './erros/MissinParam';
 
 const secret = process.env.JWT_SECRET || 'patinho';
 const jwtConfig = {
@@ -18,6 +19,6 @@ export function verifyToken(token: string): void | jwt.JwtPayload {
     const tokenData = jwt.verify(token, secret);
     return tokenData as jwt.JwtPayload;
   } catch (error) {
-    console.log(error);
+    throw new MissinParamError('Inválid token!');
   }
 }
