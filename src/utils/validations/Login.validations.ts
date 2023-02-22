@@ -16,22 +16,22 @@ export interface ILoginValidator {
 
 export default class LoginValidator implements ILoginValidator {
   checkUserEmail (email: string): void {
-    if(!email) throw new MissinParamError('O campo "email" é obrigatório.');
+    if(!email) throw new MissinParamError('Field "email" is obligatory.');
 
-    if(!email.match(/\S+@\S+\.\S+/)) throw new InvalidParam('O "email" deve ser no seguinte formato: "algo@algo.com".');
+    if(!email.match(/\S+@\S+\.\S+/)) throw new InvalidParam('"email" must be in the following format: "some@thing.com".');
 
   };
 
   checkUserName (name: string): void {
-    if(!name) throw new MissinParamError('O campo "name" é obrigatório.');
+    if(!name) throw new MissinParamError('Field "name" is obligatory.');
     
-    if(name.length < 2) throw new InvalidParam('O nome deve conter ao menos 2 caracteres.');
+    if(name.length < 2) throw new InvalidParam('Name must be at least 2 characters.');
   };
 
   checkUserPassword (password: string): void {
-    if(!password) throw new MissinParamError('O campo "password" é obrigatório.');
+    if(!password) throw new MissinParamError('Field "password" is obligatory.');
   
-    if(password.length <= 3) throw new InvalidParam('A senha deve conter mais que três digitos.');
+    if(password.length <= 3) throw new InvalidParam('Password must contain at least three characters.');
   };
   
   checkUserInfo (user: IUser): void {
@@ -41,16 +41,16 @@ export default class LoginValidator implements ILoginValidator {
   };
 
   checkUserCreation (user: IUser): void {
-    if (!user) throw new InternalError('Ops, ocorreu um erro, por favor tente mais tarde.');
+    if (!user) throw new InternalError('Ops, something went wrong, please try again later.');
   }
 
   userEmailMatch (userFound: IUser | null, isLogin: boolean): void {
-    if (isLogin && userFound == null) throw new InvalidParam('Email ou senha incorretos.');
+    if (isLogin && userFound == null) throw new InvalidParam('Email or password incorrect.');
     
-    if (!isLogin && userFound) throw new ConflictError('Email já cadastrado.')
+    if (!isLogin && userFound) throw new ConflictError('Email already registered.')
   };
 
   userPasswordMatch (passwordMatch: boolean): void {
-    if (!passwordMatch) throw new InvalidParam('Email ou senha incorretos.');
+    if (!passwordMatch) throw new InvalidParam('Email or password incorrect.');
   };
 }
