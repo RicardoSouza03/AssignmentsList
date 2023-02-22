@@ -22,7 +22,7 @@ export default class AssignmentController {
     const token = req.headers.authorization;
     const newAssignment = req.body;
 
-    const assignment = { description: newAssignment, assignmentId: Number(id) }
+    const assignment = { description: newAssignment.description, assignmentId: Number(id) }
     const updatedAssignment = await AssignmentsService.updateAssignment(assignment, token);
 
     return res.status(201).json(updatedAssignment);
