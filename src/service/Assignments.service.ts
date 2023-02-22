@@ -59,7 +59,7 @@ export default class AssignmentsService {
     return updatedAssignment;
   }
 
-  public static async deleteAssignment(assignmentId: number, token: string): Promise<void> {
+  public static async deleteAssignment(assignmentId: number, token: string | undefined): Promise<void> {
     const id = this.getIdFromToken(token);
 
     await Assignment.destroy({ where: { userId: id, id: assignmentId } });
