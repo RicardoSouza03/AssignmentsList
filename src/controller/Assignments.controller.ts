@@ -27,4 +27,13 @@ export default class AssignmentController {
 
     return res.status(201).json(updatedAssignment);
   }
+  
+  public deleteAssignment = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+
+    await AssignmentsService.deleteAssignment(Number(id), token);
+
+    return res.status(200).json({ message: 'Assignment deleted with success!' });
+  }
 }
