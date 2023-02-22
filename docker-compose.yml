@@ -1,13 +1,16 @@
-version: '3.9'
+version: '3'
+
 services:
   backend:
-    image: node:16.14-alpine
+    image: node:16.14
     container_name: backend
     ports:
       - 3001:3001
     working_dir: /src
-    volumes: 
-      - ./src:/src
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/src
     depends_on: 
       - db
     environment:
@@ -17,6 +20,10 @@ services:
       - DB_PASS=1234
       - DB_HOST=db
       - DB_PORT=3306
+    restart: always
+    networks:
+      - net
+
   db:
     image: mysql:8.0.21
     container_name: db
@@ -26,3 +33,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=1234
     restart: 'always'
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
