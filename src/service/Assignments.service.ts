@@ -32,14 +32,20 @@ export default class AssignmentsService {
     return userAssignments;
   }
 
+  public static async getAssignmentById(assignmentId: number): Promise<IAssignment> {
+    const assignment = await Assignment.findByPk(assignmentId);
+    return assignment as IAssignment;
+  }
+
   public static async updateAssignment(
     newAssignment: { description: string, assingmentId: number },
     token: string | undefined
   ): Promise<void> {
     const { description, assingmentId } = newAssignment
     this.validations.validateDescription(description);
+
     const id = this.getIdFromToken(token);
 
-    const updatedAssingment = await Assignment.update({ description }, { where: { userId: id, id: assingmentId } });
+    const updatedAssingment = await Assignment.update({ description }, { where: { userId: id, id: assingmentId } });    
   }
 }
