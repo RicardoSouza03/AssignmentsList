@@ -22,6 +22,8 @@ export default class AssignmentsService {
     const id = this.getIdFromToken(token);
 
     const createdAssignment = await Assignment.create({ ...assignment, userId: id });
+    this.validations.validateInternalError(createdAssignment);
+
     return createdAssignment;
   }
 
@@ -33,19 +35,27 @@ export default class AssignmentsService {
   }
 
   public static async getAssignmentById(assignmentId: number): Promise<IAssignment> {
+    this.validations.validateAssingmentId(assignmentId);
     const assignment = await Assignment.findByPk(assignmentId);
+
+    this.validations.validateInternalError(assignment);
+
     return assignment as IAssignment;
   }
 
   public static async updateAssignment(
     newAssignment: { description: string, assingmentId: number },
     token: string | undefined
-  ): Promise<void> {
+  ): Promise<IAssignment> {
     const { description, assingmentId } = newAssignment
     this.validations.validateDescription(description);
+    this.validations.validateAssingmentId(assingmentId);
 
     const id = this.getIdFromToken(token);
 
-    const updatedAssingment = await Assignment.update({ description }, { where: { userId: id, id: assingmentId } });    
+    await Assignment.update({ description }, { where: { userId: id, id: assingmentId } });
+    const updatedAssignment = await this.getAssignmentById(assingmentId);
+    
+    return updatedAssignment;
   }
 }
