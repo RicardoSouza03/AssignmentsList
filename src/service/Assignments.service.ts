@@ -38,7 +38,7 @@ export default class AssignmentsService {
     this.validations.validateAssingmentId(assignmentId);
     const assignment = await Assignment.findByPk(assignmentId);
 
-    this.validations.validateInternalError(assignment);
+    this.validations.assignmentNotFound(assignment);
 
     return assignment as IAssignment;
   }
@@ -61,6 +61,8 @@ export default class AssignmentsService {
 
   public static async deleteAssignment(assignmentId: number, token: string | undefined): Promise<void> {
     const id = this.getIdFromToken(token);
+  
+    await this.getAssignmentById(assignmentId);
 
     await Assignment.destroy({ where: { userId: id, id: assignmentId } });
   }
