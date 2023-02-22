@@ -7,6 +7,13 @@ export default class AssignmentController {
     const newAssignment = req.body;
 
     const createdAssignment = await AssignmentsService.createAssignment(newAssignment, token);
-    return res.status(201).json({ createdAssignment });
+    return res.status(201).json(createdAssignment);
+  }
+
+  public getUserAssignments = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.headers.authorization;
+    const assignments = await AssignmentsService.getUserAssignments(token);
+
+    return res.status(200).json(assignments);
   }
 }
