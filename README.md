@@ -20,7 +20,7 @@ This project has no front end, so it is more difficult to visualize what it does
 - First the user have to create and account, with basic info, like an email, a password and his name.
   - Or login in with an account, both of these will return a **Token**;
 - Secondly the user will be able to see the assignments that already exists, or create a brand new one;
-- If the user created an assignment and latter on saw that it is misspelled, it is possible to correct it;   
+- If the user created an assignment and later on, see that it's misspelled, it is possible to correct it;   
 - And if an assignment is finished, the user can just leave it there, or delete it;
 - Users can also chage names after an account has been created.
 
